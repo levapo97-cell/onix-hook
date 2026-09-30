@@ -2,7 +2,14 @@
 
 Binario **Go** que corre **en tu PC**. Lo ejecutan los hooks de Claude Code: arma el evento crudo y lo publica en `onix.raw.<sesión>` por una **conexión saliente** a NATS (TLS) en el VPS. Sin lógica pesada; no bloquea al agente.
 
-> **Estado:** se construye en **Fase 1** (es la pieza que dispara el vertical mínimo E2E). Este README documenta su diseño.
+> **Estado (Fase 1 ✅):** implementado. Lee el payload del hook por stdin, arma el `RawEvent` y lo publica en `onix.raw.<sesión>`. No bloquea al agente (connect con timeout, sale 0 siempre). Verificado E2E (2026-09-30): el evento aparece en la web y en Postgres en <1s.
+
+## Uso rápido (build + prueba)
+```bash
+go build -o onix-hook ./cmd/onix-hook
+echo '{"session_id":"demo","hook_event_name":"PostToolUse","tool_name":"Bash","tool_input":{"command":"ls"}}' \
+  | NATS_URL=nats://localhost:4222 ONIX_PROJECT=onixguard ONIX_AGENT_ROLE=fullstack ./onix-hook
+```
 
 ---
 

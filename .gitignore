@@ -1,0 +1,12 @@
+# Go
+/bin/
+/out/
+/onix-hook
+*.test
+*.out
+
+# OS
+.DS_Store
+
+# grafo de conocimiento (generado, local)
+graphify-out/
